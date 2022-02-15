@@ -1,0 +1,27 @@
+DROP DATABASE IF EXISTS crud_jc;
+CREATE DATABASE crud_jc;
+
+
+\c crud_jc;
+
+
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255),
+  password VARCHAR(255)
+);
+
+CREATE TABLE todo(
+  id SERIAL PRIMARY KEY,
+  description VARCHAR(255) NOT NULL,
+  user_id int NOT NULL,
+  lastUpdated TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE api(
+  api_key UUID NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  count INT NOT NULL DEFAULT 0,
+  PRIMARY KEY(api_key)
+);
